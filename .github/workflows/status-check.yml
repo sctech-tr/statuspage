@@ -40,7 +40,8 @@ jobs:
         for site in SITES:
           try:
             response = requests.get(site, timeout=10)
-            status = "up" if response.status_code == 200 else "down"
+            # Site is up if status code is in the 1xx, 2xx, or 3xx range
+            status = "up" if 100 <= response.status_code < 400 else "down"
           except requests.RequestException:
             status = "down"
           
