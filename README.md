@@ -1,6 +1,6 @@
 # sctech statuspage
 simple github workflow to check sites' status
-## how to use:
+## How to use:
 ### First, create a Personal Access Token (PAT):
 
 1. Go to your GitHub account settings
@@ -15,13 +15,15 @@ Add the token to your repository secrets:
 3. Click on "New repository secret"
 4. Name the secret PAT and paste your token as the value.
 
-### next, generate a new repo from this template.
-1. delete status.json
-2. open /.github/workflows/check-status.yml
-3. change the sites' urls to your sites' urls. (add more if you need to)
-#### if you used a custom domain:
-go to your custom domain
-#### if you did not use a custom domain:
-go to https://yourusername.github.io/reponame
+### Next, generate a new repo from this template.
+1. Click "generate repository" at the top right corner.
+2. Enter the repo information.
+3. Delete status.json
+4. Open /.github/workflows/check-status.yml
+5. Change the sites' urls to your sites' urls. (add more if you need to)
+#### If you used a custom domain:
+Go to your custom domain
+#### If you did not use a custom domain:
+Go to https://yourusername.github.io/reponame
 
-replace yourusername with your username and replace reponame with your generated repo's name.
+Replace yourusername with your username and replace reponame with your generated repo's name.
