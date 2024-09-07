@@ -10,6 +10,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+      with:
+        token: ${{ secrets.PAT }}  # Use PAT for checkout
     
     - name: Set up Python
       uses: actions/setup-python@v2
@@ -57,12 +59,14 @@ jobs:
         git config --global user.email 'action@github.com'
         git add status.json
         git diff --quiet && git diff --staged --quiet || (git commit -m "Update status" && git push)
+      env:
+        GITHUB_TOKEN: ${{ secrets.PAT }}  # Use PAT for push
     
     - name: Create or update issues
       if: failure()
       uses: actions/github-script@v6
       with:
-        github-token: ${{secrets.GITHUB_TOKEN}}
+        github-token: ${{ secrets.PAT }}  # Use PAT for creating issues
         script: |
           const fs = require('fs');
           const status = JSON.parse(fs.readFileSync('status.json', 'utf8'));
