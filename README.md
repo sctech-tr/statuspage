@@ -16,8 +16,9 @@ Add the token to your repository secrets:
 4. Name the secret PAT and paste your token as the value.
 
 ### next, generate a new repo from this template.
-1. open /.github/workflows/check-status.yml
-2. change the sites' urls to your sites' urls. (add more if you need to)
+1. delete status.json
+2. open /.github/workflows/check-status.yml
+3. change the sites' urls to your sites' urls. (add more if you need to)
 #### if you used a custom domain:
 go to your custom domain
 #### if you did not use a custom domain:
