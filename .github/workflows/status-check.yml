@@ -1,0 +1,89 @@
+name: Website Status Check
+
+on:
+  schedule:
+    - cron: '*/5 * * * *'  # Runs every 5 minutes
+  workflow_dispatch:  # Allows manual triggering
+
+jobs:
+  check_status:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install requests
+    
+    - name: Check website status
+      run: |
+        import requests
+        import json
+        from datetime import datetime
+        
+        SITES = [
+          "https://example.com",
+          "https://example.org"
+        ]
+        
+        results = []
+        
+        for site in SITES:
+          try:
+            response = requests.get(site, timeout=10)
+            status = "up" if response.status_code == 200 else "down"
+          except requests.RequestException:
+            status = "down"
+          
+          results.append({
+            "url": site,
+            "status": status,
+            "timestamp": datetime.utcnow().isoformat()
+          })
+        
+        with open('status.json', 'w') as f:
+          json.dump(results, f, indent=2)
+      shell: python
+    
+    - name: Commit and push if changed
+      run: |
+        git config --global user.name 'GitHub Action'
+        git config --global user.email 'action@github.com'
+        git add status.json
+        git diff --quiet && git diff --staged --quiet || (git commit -m "Update status" && git push)
+    
+    - name: Create or update issues
+      if: failure()
+      uses: actions/github-script@v6
+      with:
+        github-token: ${{secrets.GITHUB_TOKEN}}
+        script: |
+          const fs = require('fs');
+          const status = JSON.parse(fs.readFileSync('status.json', 'utf8'));
+          
+          for (const site of status) {
+            if (site.status === 'down') {
+              const issues = await github.rest.issues.listForRepo({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                state: 'open',
+                labels: ['status', site.url]
+              });
+              
+              if (issues.data.length === 0) {
+                await github.rest.issues.create({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  title: `🔴 ${site.url} is down`,
+                  body: `Site ${site.url} is currently down. Last checked at ${site.timestamp}`,
+                  labels: ['status', site.url]
+                });
+              }
+            }
+          }
