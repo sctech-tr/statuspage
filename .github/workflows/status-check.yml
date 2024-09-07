@@ -32,7 +32,8 @@ jobs:
         
         SITES = [
           "https://example.com",
-          "https://example.org"
+          "https://example.org",
+          "https://nonexistenttest.sctech.mooo.com"
         ]
         
         results = []
