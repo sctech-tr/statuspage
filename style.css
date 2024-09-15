@@ -6,5 +6,5 @@
 /* Custom Wii Font */
 @font-face {
     font-family: 'wii'; /* This is the name in CSS */
-    src: url('https://sctech.mooo.com/wii_bold.ttf') format('ttf'); /* Path to font file */
+    src: url('https://sctech.mooo.com/wii_bold.ttf') format('truetype'); /* Path to font file */
 }
