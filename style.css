@@ -1,10 +1,12 @@
 /* Global Styles */
+body {
+    font-family: monospace, sans-serif; /* Monospace for terminal look */
+    background-color: #1e1e1e; /* Dark terminal background */
+    color: #c5c8c6; /* Light grey text */
+    margin: 0;
+    padding: 20px; /* Added padding for more space around content */
+}
+
 * {
     box-sizing: border-box; /* Ensures padding and border are included in element's total width and height */
-    font-family: "wii", sans-serif; /* Custom font for the entire page */
-}
-/* Custom Wii Font */
-@font-face {
-    font-family: 'wii'; /* This is the name in CSS */
-    src: url('https://sctech.mooo.com/wii_bold.ttf') format('truetype'); /* Path to font file */
 }
