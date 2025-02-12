@@ -2,16 +2,16 @@
   {
     "url": "https://example.com",
     "status": "up",
-    "timestamp": "2025-02-12T13:10:27.825811"
+    "timestamp": "2025-02-12T13:31:14.008009"
   },
   {
     "url": "https://example.org",
     "status": "up",
-    "timestamp": "2025-02-12T13:10:28.027807"
+    "timestamp": "2025-02-12T13:31:14.025379"
   },
   {
     "url": "https://nonexistenttest.sctech.mooo.com",
     "status": "down",
-    "timestamp": "2025-02-12T13:10:28.113583"
+    "timestamp": "2025-02-12T13:31:14.128841"
   }
 ]
